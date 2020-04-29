@@ -11,13 +11,10 @@ namespace Service
     /// </summary>
     public class FoodFactsService : IFoodFactsService
     {
-        const string searchBaseUrl = "https://us.openfoodfacts.org/cgi/search.pl";
+        private const string searchBaseUrl = "https://us.openfoodfacts.org/cgi/search.pl";
         private readonly HttpClient _client;
 
-        public FoodFactsService(HttpClient client)
-        {
-            _client = client;
-        }
+        public FoodFactsService(HttpClient client) => _client = client;
 
         public async Task<List<Product>> GetProductsByIngredientAsync(string ingredient, int limit = 20)
         {
@@ -33,7 +30,7 @@ namespace Service
 
             if (!httpResponse.IsSuccessStatusCode)
             {
-                throw new Exception("Cannot retrieve products.");
+                return new List<Product>();
             }
 
             var content = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
