@@ -7,6 +7,6 @@ namespace Service
 {
     public interface IFoodFactsService
     {
-        Task<List<Product>> GetProductsByIngredientAsync(string ingredient, int limit);
+        Task<List<Product>> GetProductsByIngredientAsync(string ingredient, int limit = 20);
     }
 }

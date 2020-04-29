@@ -24,7 +24,7 @@ namespace Service
             // using LINQ retrieve a list of products in the correct format
             return results.Select(token => new Product {
                 ProductName = (string)token["product_name"],
-                Ingredients = ((string)token["ingredients"]).Split(',').ToList<string>()
+                Ingredients = ((string)token["ingredients_text"]).Split(", ").ToList<string>()
             }).ToList();
         }
     }
