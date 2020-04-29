@@ -9,6 +9,9 @@ namespace Service.Test
     {
         private readonly IFoodFactsService _foodFactsService;
 
+        /// <summary>
+        /// Setting up the service that will be used in each test
+        /// </summary>
         public FoodFactsServiceTests()
         {
             var services = new ServiceCollection();
@@ -18,6 +21,10 @@ namespace Service.Test
             _foodFactsService = serviceProvider.GetRequiredService<IFoodFactsService>();
         }
 
+        /// <summary>
+        /// Should retrieve products containing "egg" within the ingredients
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetProducts_ByIngredient_NotEmpty()
         {
@@ -26,6 +33,10 @@ namespace Service.Test
             Assert.NotEmpty(products);
         }
 
+        /// <summary>
+        /// Should retrieve 10 products containing "chocolate" within the ingredients
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetProducts_ByIngredient_LimitedResults()
         {
@@ -34,6 +45,10 @@ namespace Service.Test
             Assert.Equal(10, products.Count);
         }
 
+        /// <summary>
+        /// Should retrieve the default amount (20) of products containing "sugar" within the ingredients
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetProducts_ByIngredient_DefaultLimit()
         {
