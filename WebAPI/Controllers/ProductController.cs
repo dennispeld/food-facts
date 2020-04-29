@@ -36,7 +36,9 @@ namespace WebAPI.Controllers
             var products = await _foodFactsService.GetProductsByIngredientAsync(ingredient).ConfigureAwait(false);
 
             if (!products.Any()) {
-                return NotFound(new { ingredient });
+                 var error = $"The products with the specified ingredient {ingredient} were not found.";
+
+                return NotFound(new { error });
             }
 
             return Ok(new { products });
@@ -51,10 +53,18 @@ namespace WebAPI.Controllers
         [HttpGet("/search/ingredient/{ingredient}/limit/{limit}")]
         public async Task<IActionResult> SearchAction(string ingredient, int limit)
         {
+            if (limit < 1) {
+                const string error = "The limit number should be a positive number.";
+
+                return NotFound(new { error });
+            }
+
             var products = await _foodFactsService.GetProductsByIngredientAsync(ingredient, limit).ConfigureAwait(false);
 
             if (!products.Any()) {
-                return NotFound(new { ingredient });
+                var error = $"The products with the specified ingredient {ingredient} were not found.";
+
+                return NotFound(new { error });
             }
 
             return Ok(new { products });
